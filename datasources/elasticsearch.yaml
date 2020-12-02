@@ -1,0 +1,23 @@
+apiVersion: 1
+
+deleteDatasources:
+  - name: Elastic
+    orgId: 1
+
+datasources:
+  - name: Elastic
+    type: elasticsearch
+    access: proxy
+    database: "${index}"
+    url: "${url}"
+    jsonData:
+      interval: Daily
+      timeField: "@timestamp"
+      esVersion: "${version}"
+      logMessageField: message
+      logLevelField: fields.level
+    basicAuth: true
+    basicAuthUser: "${username}"
+    secureJsonData:
+      basicAuthPassword: "${password}"
+    editable: false

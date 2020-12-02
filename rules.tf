@@ -1,0 +1,3 @@
+locals {
+  recording_rules = []
+}
