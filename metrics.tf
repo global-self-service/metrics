@@ -30,7 +30,7 @@ module "metrics" {
     client_secret  = local.client_secret
     auth_url       = local.oauth_authorization_endpoint
     token_url      = local.oauth_token_endpoint
-    allowed_groups = [module.common.azure_groups["selfservice"]]
+    allowed_groups = [module.common.azure_groups["devops"]]
   }
 
   blackbox_target_urls = []
