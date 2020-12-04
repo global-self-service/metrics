@@ -1,11 +1,11 @@
 provider "vault" {}
 
 data "vault_generic_secret" "datasource" {
-  path = "secret/self-service/envs/${local.environment}/elasticsearch/datasource"
+  path = "secret/selfservice/envs/${local.environment}/elasticsearch/datasource"
 }
 
 data "vault_generic_secret" "grafana" {
-  path = "secret/self-service/envs/${local.environment}/grafana"
+  path = "secret/selfservice/envs/${local.environment}/grafana"
 }
 
 locals {
