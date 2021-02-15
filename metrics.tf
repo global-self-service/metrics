@@ -19,6 +19,7 @@ module "metrics" {
   vpc_id                  = local.vpc_id
   zone_id                 = local.zone_id
   zone_name               = local.domain_name
+  prometheus_trusted_ips  = [module.common.devops_team.cidr, module.common.ct_team.cidr]
 
   external_labels = {
     environment = "selfservice-${local.environment}"
@@ -31,6 +32,7 @@ module "metrics" {
     auth_url       = local.oauth_authorization_endpoint
     token_url      = local.oauth_token_endpoint
     allowed_groups = [module.common.azure_groups["devops"]]
+    tenant_id      = module.common.azure_tenant_id
   }
 
   blackbox_target_urls = []
