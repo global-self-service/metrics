@@ -1,5 +1,5 @@
 module "metrics" {
-  source = "github.com/global-devops-terraform/k8s-metrics?ref=v0.137.6"
+  source = "github.com/global-devops-terraform/k8s-metrics?ref=v0.137.7"
 
   read_access_groups = {
     "devaccess" = ["devaccess"]
