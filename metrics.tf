@@ -1,5 +1,5 @@
 module "metrics" {
-  source = "github.com/global-devops-terraform/k8s-metrics?ref=v0.139.1"
+  source = "github.com/global-devops-terraform/k8s-metrics?ref=v0.140.0"
 
   read_access_groups = {
     "devaccess" = ["devaccess"]
@@ -29,8 +29,8 @@ module "metrics" {
     sso_enabled    = true
     client_id      = local.client_id
     client_secret  = local.client_secret
-    auth_url       = local.oauth_authorization_endpoint
-    token_url      = local.oauth_token_endpoint
+    auth_url       = module.common.azure_auth_url
+    token_url      = module.common.azure_token_url
     allowed_groups = [module.common.azure_groups["devops"]]
     tenant_id      = module.common.azure_tenant_id
   }
