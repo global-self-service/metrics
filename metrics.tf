@@ -6,7 +6,7 @@ module "metrics" {
   }
 
   allowed_cidr            = module.common.global_lan_cidr
-  allowed_sg              = [module.common.ct_team_eks_woker_sg, module.common.devops_team_eks_woker_sg]
+  allowed_prefixes        = flatten([module.common.prefix_list_teams, module.common.prefix_list_devops])
   cluster_name            = local.cluster_name
   cluster_oidc_issuer_url = local.cluster_oidc_issuer_url
   environment_label       = "selfservice-${local.environment}"
@@ -19,7 +19,7 @@ module "metrics" {
   vpc_id                  = local.vpc_id
   zone_id                 = local.zone_id
   zone_name               = local.domain_name
-  prometheus_trusted_ips  = [module.common.devops_team.cidr, module.common.ct_team.cidr]
+  prometheus_trusted_ips  = local.trusted_ips
 
   external_labels = {
     environment = "selfservice-${local.environment}"
@@ -38,6 +38,14 @@ module "metrics" {
   blackbox_target_urls = []
 }
 
+data "aws_ec2_managed_prefix_list" "trusted_ips" {
+  for_each = toset(flatten([module.common.prefix_list_teams, module.common.prefix_list_devops]))
+
+  id = each.value
+}
+
 locals {
+  trusted_ips = flatten([for k, v in data.aws_ec2_managed_prefix_list.trusted_ips : v.entries[*].cidr])
+
   scrape_configs = []
 }
