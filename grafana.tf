@@ -11,7 +11,7 @@ locals {
 }
 
 module "grafana" {
-  source = "github.com/global-devops-terraform/k8s-namespace?ref=v0.22.0"
+  source = "github.com/global-devops-terraform/k8s-namespace?ref=v0.22.1"
 
   namespace = module.metrics.namespace
 
